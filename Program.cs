@@ -6,6 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddSingleton<PdfGeneratorPrestamo>();
+
 var connection = builder.Configuration.GetConnectionString("connectionLibrary");
 builder.Services.AddDbContext<BibliotecaContext>(option => option.UseSqlServer(connection));
 

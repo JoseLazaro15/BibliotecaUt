@@ -1,0 +1,55 @@
+﻿@model IEnumerable<PracticaBiblioteca.Models.Libro>
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+@{
+    ViewData["Title"] = "search";
+}
+@{
+    ViewData["Title"] = "Buscar Libros";
+}
+
+<h1>Buscar Libros</h1>
+
+<form asp-action="Buscar" method="get">
+    <div class="form-group">
+        <input type="text" name="searchString" class="form-control" placeholder="Buscar por título o autor..." value="@ViewData["CurrentFilter"]" />
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Buscar</button>
+    </div>
+    <div>
+        <a asp-action="Index">Regresar al listado</a>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdAutorNavigation.Descripcion)
+            </th>
+            <!-- Añadir otras columnas que desees mostrar -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Titulo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdAutorNavigation.Descripcion)
+                </td>
+                <!-- Añadir otras columnas que desees mostrar -->
+            </tr>
+        }
+    </tbody>
+</table>
+x1

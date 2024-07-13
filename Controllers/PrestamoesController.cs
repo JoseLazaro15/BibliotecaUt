@@ -46,18 +46,8 @@ namespace PracticaBiblioteca.Controllers
             return View(prestamo);
         }
 
-
-        [HttpGet]
-        public IActionResult ImprimirSimple()
-        {
-            var pdfBytes = _pdfService.GeneratePdf();
-            if (pdfBytes == null)
-            {
-                return StatusCode(500, "Error al generar el PDF simple. Por favor, revise los registros de errores para obtener más detalles.");
-            }
-
-            return File(pdfBytes, "application/pdf", "SimplePdf.pdf");
-        }
+        
+       
 
         // GET: Prestamoes/Create
         public IActionResult Create()

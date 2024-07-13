@@ -1,4 +1,8 @@
-﻿namespace PracticaBiblioteca.Services
+﻿using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
+
+namespace PracticaBiblioteca.Services
 {
     public class PdfGeneratorPrestamo
     {

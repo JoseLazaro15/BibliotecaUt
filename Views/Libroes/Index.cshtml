@@ -9,6 +9,17 @@
 <p>
     <a asp-action="Create">Crear nuevo registro</a>
 </p>
+@* inicia metodo buscar *@
+<form asp-action="Buscar" method="get">
+    <div class="form-group">
+        <input type="text" name="searchString" class="form-control" placeholder="Buscar por título o autor..." value="@ViewData["CurrentFilter"]" />
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Buscar</button>
+    </div>
+
+</form>
+@* termina metodo buscar *@
 <table class="table">
     <thead>
         <tr>

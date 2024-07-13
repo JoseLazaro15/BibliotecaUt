@@ -1,8 +1,131 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestión de Bibliotecas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            color: black;
+            padding-top: 30px;
+            min-height: 70px;
 
-<div class="text-center">
-    <h1 class="display-4">Sistema de Gestion de Bibliotecas</h1>
-    <p>Sistema de Gestion de Bibliotecas para administracion.</p>
-</div>
+        }
+        header a, header h1 {
+            text-align: center;
+            text-decoration: none;
+        }
+        .content-section {
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 8px;
+  
+        }
+        .content-section img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #333;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Bienvenido al Sistema de Gestión de Bibliotecas</h1>
+        </div>
+    </header>
+    
+    <div class="container">
+        <section class="content-section">
+            <h2>Descubre Todas Nuestras Funcionalidades</h2>
+            <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765" alt="Autores">
+            <h3>Autores</h3>
+            <p><strong>Explora y Conoce:</strong> Navega a través de la información detallada sobre los autores de tus libros favoritos. Descubre sus biografías, obras publicadas y contribuciones literarias.</p>
+            <p><strong>Recomendaciones de Autores:</strong> Consulta las recomendaciones destacadas y mantente al día con los autores más populares en nuestra biblioteca.</p>
+
+            <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794" alt="Categorías">
+            <h3>Categorías</h3>
+            <p><strong>Organización por Géneros:</strong> Encuentra libros organizados en diversas categorías como ficción, no ficción, ciencia, historia, y más. Facilita tu búsqueda y descubre nuevos intereses literarios.</p>
+            <p><strong>Nuevas Categorías:</strong> Accede a las últimas categorías añadidas y encuentra libros que quizás no sabías que te interesaban.</p>
+
+            <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba" alt="Editoriales">
+            <h3>Editoriales</h3>
+            <p><strong>Variedad de Editoriales:</strong> Gestiona y consulta la información de las editoriales disponibles en nuestra biblioteca. Aprende más sobre las casas editoriales que publican tus libros favoritos.</p>
+            <p><strong>Novedades Editoriales:</strong> Mantente al tanto de las últimas publicaciones y lanzamientos editoriales.</p>
+
+            <img src="https://images.unsplash.com/photo-1576107127749-d59b58661896" alt="Estado del Préstamo">
+            <h3>Estado del Préstamo</h3>
+            <p><strong>Gestión de Préstamos:</strong> Verifica el estado de tus préstamos de manera sencilla. Consulta cuáles libros tienes prestados, su fecha de devolución y el historial de préstamos.</p>
+            <p><strong>Alertas de Devolución:</strong> Recibe notificaciones sobre próximas fechas de devolución para evitar retrasos y multas.</p>
+
+            <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794" alt="Libros">
+            <h3>Libros</h3>
+            <p><strong>Catálogo Extenso:</strong> Explora un catálogo amplio y variado de libros. Utiliza nuestras herramientas de búsqueda avanzada para encontrar exactamente lo que necesitas.</p>
+            <p><strong>Nuevas Adquisiciones:</strong> Descubre los últimos libros añadidos a nuestra colección y mantente actualizado con las novedades literarias.</p>
+
+            <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f" alt="Personas">
+            <h3>Personas</h3>
+            <p><strong>Registro y Gestión de Usuarios:</strong> Mantén un registro de todas las personas que tienen acceso a los servicios de la biblioteca. Gestiona perfiles y controla el acceso a los recursos.</p>
+            <p><strong>Perfil de Usuario:</strong> Personaliza tu perfil, consulta tu historial de préstamos y administra tus reservas y solicitudes.</p>
+
+            <img src="https://images.unsplash.com/photo-1593642634367-d91a135587b5" alt="Préstamos">
+            <h3>Préstamos</h3>
+            <p><strong>Solicitud de Préstamos:</strong> Solicita préstamos de libros de forma fácil y rápida. Consulta la disponibilidad y reserva tus libros favoritos.</p>
+            <p><strong>Historial de Préstamos:</strong> Accede a un registro detallado de todos los préstamos realizados, tanto activos como completados.</p>
+        </section>
+        
+        <section class="content-section">
+            <h2>Servicios Adicionales</h2>
+            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4" alt="Biblioteca Digital">
+            <p><strong>Biblioteca Digital:</strong> Accede a una variedad de libros electrónicos y recursos digitales disponibles para lectura en línea.</p>
+            <p><strong>Eventos y Talleres:</strong> Participa en eventos, talleres y clubes de lectura organizados por la biblioteca.</p>
+            <p><strong>Recomendaciones Personalizadas:</strong> Recibe sugerencias de libros basadas en tus intereses y tu historial de lectura.</p>
+        </section>
+        
+        <section class="content-section">
+            <h2>¿Cómo Funciona?</h2>
+            <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c" alt="Cómo Funciona">
+            <ol>
+                <li><strong>Registrarse:</strong> Crea una cuenta o inicia sesión para acceder a todas las funcionalidades del sistema.</li>
+                <li><strong>Explorar el Catálogo:</strong> Utiliza las herramientas de búsqueda y las categorías para encontrar libros de tu interés.</li>
+                <li><strong>Solicitar Préstamos:</strong> Realiza solicitudes de préstamos y verifica su estado en tu perfil.</li>
+                <li><strong>Gestionar Perfil:</strong> Administra tu perfil y consulta tu historial de préstamos y devoluciones.</li>
+            </ol>
+        </section>
+        
+        <section class="content-section">
+            <h2>Contáctanos</h2>
+            <img src="https://images.unsplash.com/photo-1581092580367-8b9d5e7fbec0" alt="Contáctanos">
+            <p>Para cualquier consulta o sugerencia, no dudes en ponerte en contacto con nosotros a través de nuestro formulario de contacto o visitando nuestras instalaciones.</p>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Sistema de Gestión de Bibliotecas. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>

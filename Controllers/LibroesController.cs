@@ -45,6 +45,27 @@ namespace PracticaBiblioteca.Controllers
 
             return View(libro);
         }
+        //busqueda
+        public async Task<IActionResult> Buscar(string searchString)
+        {
+            if (string.IsNullOrEmpty(searchString))
+            {
+                return View("search", await _context.Libros.Include(l => l.IdAutorNavigation)
+                                                          .Include(l => l.IdCategoriaNavigation)
+                                                          .Include(l => l.IdEditorialNavigation)
+                                                          .ToListAsync());
+            }
+
+            var libros = await _context.Libros
+                .Include(l => l.IdAutorNavigation)
+                .Include(l => l.IdCategoriaNavigation)
+                .Include(l => l.IdEditorialNavigation)
+                .Where(l => l.Titulo.Contains(searchString) || l.IdAutorNavigation.Descripcion.Contains(searchString))
+                .ToListAsync();
+
+            return View("search", libros);
+        }
+        //busqueda
 
         // GET: Libroes/Create
         public IActionResult Create()

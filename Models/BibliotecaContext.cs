@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 
 namespace PracticaBiblioteca.Models;
 
@@ -30,6 +31,15 @@ public partial class BibliotecaContext : DbContext
     public virtual DbSet<Prestamo> Prestamos { get; set; }
 
     public virtual DbSet<TipoPersona> TipoPersonas { get; set; }
+
+    public virtual DbSet<Login> Logins { get; set; }
+
+    public virtual DbSet<Rol> Roles { get; set; }
+
+    public virtual DbSet<AsignacionRol> AsignacionRoles { get; set; }
+
+    public virtual DbSet<Usuario> Usuarios { get; set; }
+
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.

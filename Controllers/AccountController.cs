@@ -46,7 +46,7 @@ namespace PracticaBiblioteca.Controllers
             return View(model);
         }
 
-        [HttpGet]
+
         public IActionResult Register()
         {
             // Filtrar la lista de roles para incluir solo el rol "Usuario"
@@ -57,6 +57,15 @@ namespace PracticaBiblioteca.Controllers
 
             return View();
         }
+
+
+        //[HttpGet]
+        //public IActionResult Register()
+        //{
+        // Aquí podrías cargar datos necesarios para la vista de registro, como roles, si es necesario.
+        //  ViewBag.Roles = new SelectList(_context.Roles, "IdRol", "Descripcion");
+        //return View();
+        //}
 
 
         [HttpPost]

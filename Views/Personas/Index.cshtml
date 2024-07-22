@@ -1,11 +1,11 @@
-﻿@model IEnumerable<PracticaBiblioteca.Models.Libro>
+﻿@model IEnumerable<PracticaBiblioteca.Models.Persona>
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewData["Title"] - Libros</title>
+    <title>@ViewData["Title"] - Personas</title>
     <link rel="stylesheet" href="~/css/styles.css">
 </head>
 <body>
@@ -14,37 +14,26 @@
             ViewData["Title"] = "Index";
         }
         <header>
-            <h1>Libros</h1>
+            <h1>Personas</h1>
         </header>
 
         <nav class="actions">
             <a asp-action="Create" class="btn btn-primary">Crear nuevo registro</a>
         </nav>
 
-        <form asp-action="Buscar" method="get" class="mb-3">
-            <div class="input-group">
-                <input type="text" name="searchString" class="form-control" placeholder="Buscar por título o autor..." value="@ViewData["CurrentFilter"]" />
-                <div class="input-group-append">
-                    <button type="submit" class="btn btn-primary">Buscar</button>
-                </div>
-            </div>
-        </form>
-
         <main>
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>@Html.DisplayNameFor(model => model.Titulo)</th>
-                            <th>@Html.DisplayNameFor(model => model.RutaPortada)</th>
-                            <th>@Html.DisplayNameFor(model => model.NombrePortada)</th>
-                            <th>@Html.DisplayNameFor(model => model.Ubicacion)</th>
-                            <th>@Html.DisplayNameFor(model => model.Ejemplares)</th>
+                            <th>@Html.DisplayNameFor(model => model.Nombre)</th>
+                            <th>@Html.DisplayNameFor(model => model.Apellido)</th>
+                            <th>@Html.DisplayNameFor(model => model.Correo)</th>
+                            <th>@Html.DisplayNameFor(model => model.Clave)</th>
+                            <th>@Html.DisplayNameFor(model => model.Codigo)</th>
                             <th>@Html.DisplayNameFor(model => model.Estado)</th>
                             <th>@Html.DisplayNameFor(model => model.FechaCreacion)</th>
-                            <th>@Html.DisplayNameFor(model => model.IdAutorNavigation)</th>
-                            <th>@Html.DisplayNameFor(model => model.IdCategoriaNavigation)</th>
-                            <th>@Html.DisplayNameFor(model => model.IdEditorialNavigation)</th>
+                            <th>@Html.DisplayNameFor(model => model.IdTipoPersonaNavigation)</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -52,20 +41,18 @@
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td>@Html.DisplayFor(modelItem => item.Titulo)</td>
-                                <td>@Html.DisplayFor(modelItem => item.RutaPortada)</td>
-                                <td>@Html.DisplayFor(modelItem => item.NombrePortada)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Ubicacion)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Ejemplares)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Apellido)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Correo)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Clave)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Codigo)</td>
                                 <td>@Html.DisplayFor(modelItem => item.Estado)</td>
                                 <td>@Html.DisplayFor(modelItem => item.FechaCreacion)</td>
-                                <td>@Html.DisplayFor(modelItem => item.IdAutorNavigation.Descripcion)</td>
-                                <td>@Html.DisplayFor(modelItem => item.IdCategoriaNavigation.Descripcion)</td>
-                                <td>@Html.DisplayFor(modelItem => item.IdEditorialNavigation.Descripcion)</td>
+                                <td>@Html.DisplayFor(modelItem => item.IdTipoPersonaNavigation.Descripcion)</td>
                                 <td>
-                                    <a asp-action="Edit" asp-route-id="@item.IdLibro" class="btn btn-sm btn-secondary">Editar</a>
-                                    <a asp-action="Details" asp-route-id="@item.IdLibro" class="btn btn-sm btn-info">Detalles</a>
-                                    <a asp-action="Delete" asp-route-id="@item.IdLibro" class="btn btn-sm btn-danger">Eliminar</a>
+                                    <a asp-action="Edit" asp-route-id="@item.IdPersona" class="btn btn-sm btn-secondary">Editar</a>
+                                    <a asp-action="Details" asp-route-id="@item.IdPersona" class="btn btn-sm btn-info">Detalles</a>
+                                    <a asp-action="Delete" asp-route-id="@item.IdPersona" class="btn btn-sm btn-danger">Eliminar</a>
                                 </td>
                             </tr>
                         }
@@ -76,3 +63,4 @@
     </div>
 </body>
 </html>
+

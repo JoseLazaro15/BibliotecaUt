@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PracticaBiblioteca.Models.Libro>
+﻿@* @model IEnumerable<PracticaBiblioteca.Models.Libro>
 
 @{
     ViewData["Title"] = "Index";
@@ -10,7 +10,7 @@
     <a asp-action="Create">Crear nuevo registro</a>
 </p>
 @* inicia metodo buscar *@
-<form asp-action="Buscar" method="get">
+@* <form asp-action="Buscar" method="get">
     <div class="form-group">
         <input type="text" name="searchString" class="form-control" placeholder="Buscar por título o autor..." value="@ViewData["CurrentFilter"]" />
     </div>
@@ -18,9 +18,9 @@
         <button type="submit" class="btn btn-primary">Buscar</button>
     </div>
 
-</form>
+</form>  *@
 @* termina metodo buscar *@
-<table class="table">
+@* <table class="table">
     <thead>
         <tr>
             <th>
@@ -97,4 +97,201 @@
         </tr>
 }
     </tbody>
-</table>
+</table> *@
+
+                 @model IEnumerable<PracticaBiblioteca.Models.Libro>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - PracticaBiblioteca</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+            color: #fff;
+        }
+
+        p {
+            text-align: center;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+            a:hover {
+                text-decoration: underline;
+            }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .form-control {
+            width: 80%;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.5;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            user-select: none;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            color: #fff;
+            background-color: #007bff;
+            border-color: #007bff;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+            .btn:hover {
+                background-color: #0056b3;
+                border-color: #004085;
+            }
+
+        /* Table Styles */
+        .table {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+            .table th, .table td {
+                padding: 12px;
+                border: 1px solid #dee2e6;
+                text-align: left;
+            }
+
+            .table th {
+                background-color: #343a40;
+                color: #fff;
+                font-weight: bold;
+            }
+
+            .table tbody tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+            .table a {
+                color: #007bff;
+            }
+
+                .table a:hover {
+                    text-decoration: underline;
+                }
+
+        /* Additional Styles */
+        .container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+            .container a.btn-create {
+                display: inline-block;
+                margin: 20px auto;
+                padding: 10px 20px;
+                color: #fff;
+                background-color: #28a745;
+                border-color: #28a745;
+                border-radius: 4px;
+                text-decoration: none;
+            }
+
+                .container a.btn-create:hover {
+                    background-color: #218838;
+                    border-color: #1e7e34;
+                }
+    </style>
+</head>
+<body>
+    <h1>Inicio</h1>
+
+    <div class="container">
+        <a asp-action="Create" class="btn-create">Crear nuevo registro</a>
+    </div>
+
+    <form asp-action="Buscar" method="get">
+        <div class="form-group">
+            <input type="text" name="searchString" class="form-control" placeholder="Buscar por título o autor..." value="@ViewData["CurrentFilter"]" />
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </div>
+    </form>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Titulo)</th>
+                <th>@Html.DisplayNameFor(model => model.RutaPortada)</th>
+                <th>@Html.DisplayNameFor(model => model.NombrePortada)</th>
+                <th>@Html.DisplayNameFor(model => model.Ubicacion)</th>
+                <th>@Html.DisplayNameFor(model => model.Ejemplares)</th>
+                <th>@Html.DisplayNameFor(model => model.Estado)</th>
+                <th>@Html.DisplayNameFor(model => model.FechaCreacion)</th>
+                <th>@Html.DisplayNameFor(model => model.IdAutorNavigation)</th>
+                <th>@Html.DisplayNameFor(model => model.IdCategoriaNavigation)</th>
+                <th>@Html.DisplayNameFor(model => model.IdEditorialNavigation)</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Titulo)</td>
+                    <td>@Html.DisplayFor(modelItem => item.RutaPortada)</td>
+                    <td>@Html.DisplayFor(modelItem => item.NombrePortada)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Ubicacion)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Ejemplares)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Estado)</td>
+                    <td>@Html.DisplayFor(modelItem => item.FechaCreacion)</td>
+                    <td>@Html.DisplayFor(modelItem => item.IdAutorNavigation.Descripcion)</td>
+                    <td>@Html.DisplayFor(modelItem => item.IdCategoriaNavigation.Descripcion)</td>
+                    <td>@Html.DisplayFor(modelItem => item.IdEditorialNavigation.Descripcion)</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.IdLibro">Editar</a> |
+                        <a asp-action="Details" asp-route-id="@item.IdLibro">Detalles</a> |
+                        <a asp-action="Delete" asp-route-id="@item.IdLibro">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>

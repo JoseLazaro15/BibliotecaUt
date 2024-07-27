@@ -67,17 +67,17 @@
                             <li class="nav-item">
                                 <form asp-controller="Account" asp-action="Logout" method="post" class="form-inline">
                                     @Html.AntiForgeryToken() <!-- Asegúrate de incluir el token anti-forgery -->
-                                    <button type="submit" class="btn btn-link">Logout</button>
+                                    <button type="submit" class="btn btn-link">Cerrar sesion</button>
                                 </form>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Iniciar sesion</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Registrarse</a>
                             </li>
                         }
                     </ul>
@@ -101,3 +101,5 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
 </body>
 </html>
+
+

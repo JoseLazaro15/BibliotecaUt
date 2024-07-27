@@ -1,52 +1,57 @@
 ﻿@model IEnumerable<PracticaBiblioteca.Models.Categorium>
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewData["Title"] - Categorías</title>
-    <link rel="stylesheet" href="~/css/styles.css">
-</head>
-<body>
-    <div class="container">
-        <header>
-            <h1>Categorías</h1>
-        </header>
+@{
+    ViewData["Title"] = "Inicio";
+    var userRole = User.IsInRole("Admin") ? "Admin" : "Usuario";
+}
 
-        <nav class="actions">
-            <a asp-action="Create" class="btn btn-primary">Crear nueva categoría</a>
-        </nav>
+<h1>Categorías</h1>
 
-        <main>
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>@Html.DisplayNameFor(model => model.Descripcion)</th>
-                            <th>@Html.DisplayNameFor(model => model.Estado)</th>
-                            <th>@Html.DisplayNameFor(model => model.FechaCreacion)</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Estado)</td>
-                                <td>@Html.DisplayFor(modelItem => item.FechaCreacion)</td>
-                                <td class="actions">
-                                    <a href="@Url.Action("Edit", new { id = item.IdCategoria })" class="btn btn-sm btn-secondary">Editar</a>
-                                    <a href="@Url.Action("Details", new { id = item.IdCategoria })" class="btn btn-sm btn-info">Detalles</a>
-                                    <a href="@Url.Action("Delete", new { id = item.IdCategoria })" class="btn btn-sm btn-danger">Eliminar</a>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </main>
-    </div>
-</body>
-</html>
+@if (userRole == "Admin")
+{
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Crear nueva categoría</a>
+    </p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaCreacion)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Estado)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaCreacion)
+                </td>
+                <td>
+                    @if (userRole == "Admin")
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.IdCategoria">Editar</a>
+
+                        <a asp-action="Delete" asp-route-id="@item.IdCategoria">Eliminar </a>
+                        <a asp-action="Details" asp-route-id="@item.IdCategoria">Detalles </a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

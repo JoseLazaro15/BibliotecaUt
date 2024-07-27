@@ -2,18 +2,18 @@
     var userRole = ViewData["UserRole"] as string;
 }
 
-<h1>Welcome to the Home Page!</h1>
+<h1>Bienvenido a tu Bilbioteca!</h1>
 
 @if (userRole == "Admin")
 {
-    <p>You are logged in as an Admin.</p>
-    <a asp-controller="Admin" asp-action="AdminDashboard">Go to Admin Dashboard</a>
+    <p>Bienvenido Administrador!</p>
+
 }
 
 @if (userRole == "Usuario")
 {
-    <p>You are logged in as a Usuario.</p>
-    <a asp-controller="User" asp-action="UserDashboard">Go to User Dashboard</a>
+    <p>Bienvenido!</p>
+
 }
 
 @if (userRole == "Unknown")

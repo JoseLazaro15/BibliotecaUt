@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization; // Añade esta línea
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +26,7 @@ namespace PracticaBiblioteca.Controllers
         }
 
         // GET: Editorials/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -43,16 +45,16 @@ namespace PracticaBiblioteca.Controllers
         }
 
         // GET: Editorials/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
         }
 
         // POST: Editorials/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("IdEditorial,Descripcion,Estado,FechaCreacion")] Editorial editorial)
         {
             if (ModelState.IsValid)
@@ -65,6 +67,7 @@ namespace PracticaBiblioteca.Controllers
         }
 
         // GET: Editorials/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -81,10 +84,9 @@ namespace PracticaBiblioteca.Controllers
         }
 
         // POST: Editorials/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("IdEditorial,Descripcion,Estado,FechaCreacion")] Editorial editorial)
         {
             if (id != editorial.IdEditorial)
@@ -116,6 +118,7 @@ namespace PracticaBiblioteca.Controllers
         }
 
         // GET: Editorials/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -136,6 +139,7 @@ namespace PracticaBiblioteca.Controllers
         // POST: Editorials/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var editorial = await _context.Editorials.FindAsync(id);

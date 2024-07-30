@@ -1,87 +1,67 @@
 ﻿@model IEnumerable<PracticaBiblioteca.Models.Prestamo>
 
-@{
-    ViewData["Title"] = "Index";
-}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - Préstamos</title>
+    <link rel="stylesheet" href="~/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        @{
+            ViewData["Title"] = "Index";
+        }
+        <header>
+            <h1>Préstamos</h1>
+        </header>
 
-<h1>Prestamos</h1>
+        <nav class="actions">
+            <a asp-action="Create" class="btn btn-primary">Crear nuevo registro</a>
+        </nav>
 
-<p>
-    <a asp-action="Create">Crear nuevo registro</a>
-</p>
-
-<a asp-controller="Prestamoes" asp-action="ImprimirSimple" class="btn btn-success">Imprimir boleta de Prestamo</a>
-
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaDevolucion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaConfirmacionDevolucion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EstadoEntregado)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EstadoRecibido)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Estado)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaCreacion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdEstadoPrestamoNavigation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdLibroNavigation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdPersonaNavigation)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaDevolucion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaConfirmacionDevolucion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EstadoEntregado)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EstadoRecibido)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Estado)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaCreacion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdEstadoPrestamoNavigation.Descripcion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdLibroNavigation.Titulo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdPersonaNavigation.Nombre)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdPrestamo">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.IdPrestamo">Detalles</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdPrestamo">Eliminar</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+        <main>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.FechaDevolucion)</th>
+                            <th>@Html.DisplayNameFor(model => model.FechaConfirmacionDevolucion)</th>
+                            <th>@Html.DisplayNameFor(model => model.EstadoEntregado)</th>
+                            <th>@Html.DisplayNameFor(model => model.EstadoRecibido)</th>
+                            <th>@Html.DisplayNameFor(model => model.Estado)</th>
+                            <th>@Html.DisplayNameFor(model => model.FechaCreacion)</th>
+                            <th>@Html.DisplayNameFor(model => model.IdEstadoPrestamoNavigation)</th>
+                            <th>@Html.DisplayNameFor(model => model.IdLibroNavigation)</th>
+                            <th>@Html.DisplayNameFor(model => model.IdPersonaNavigation)</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.FechaDevolucion)</td>
+                                <td>@Html.DisplayFor(modelItem => item.FechaConfirmacionDevolucion)</td>
+                                <td>@Html.DisplayFor(modelItem => item.EstadoEntregado)</td>
+                                <td>@Html.DisplayFor(modelItem => item.EstadoRecibido)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Estado)</td>
+                                <td>@Html.DisplayFor(modelItem => item.FechaCreacion)</td>
+                                <td>@Html.DisplayFor(modelItem => item.IdEstadoPrestamoNavigation.Descripcion)</td>
+                                <td>@Html.DisplayFor(modelItem => item.IdLibroNavigation.Titulo)</td>
+                                <td>@Html.DisplayFor(modelItem => item.IdPersonaNavigation.Nombre)</td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.IdPrestamo" class="btn btn-sm btn-secondary">Editar</a>
+                                    <a asp-action="Details" asp-route-id="@item.IdPrestamo" class="btn btn-sm btn-info">Detalles</a>
+                                    <a asp-action="Delete" asp-route-id="@item.IdPrestamo" class="btn btn-sm btn-danger">Eliminar</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,55 +1,47 @@
 ﻿@model IEnumerable<PracticaBiblioteca.Models.EstadoPrestamo>
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewData["Title"] - Estado de Préstamo</title>
-    <link rel="stylesheet" href="~/css/styles.css">
-</head>
-<body>
-    <div class="container">
-        @{
-            ViewData["Title"] = "Index";
-        }
-        <header>
-            <h1>Estado de Préstamo</h1>
-        </header>
+@{
+    ViewData["Title"] = "Index";
+}
 
-        <nav class="actions">
-            <a asp-action="Create" class="btn btn-primary">Crear nuevo registro</a>
-        </nav>
+<h1>Estado de los prestamos</h1>
 
-        <main>
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>@Html.DisplayNameFor(model => model.Descripcion)</th>
-                            <th>@Html.DisplayNameFor(model => model.Estado)</th>
-                            <th>@Html.DisplayNameFor(model => model.FechaCreacion)</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Estado)</td>
-                                <td>@Html.DisplayFor(modelItem => item.FechaCreacion)</td>
-                                <td class="actions">
-                                    <a asp-action="Edit" asp-route-id="@item.IdEstadoPrestamo" class="btn btn-sm btn-secondary">Editar</a>
-                                    <a asp-action="Details" asp-route-id="@item.IdEstadoPrestamo" class="btn btn-sm btn-info">Detalles</a>
-                                    <a asp-action="Delete" asp-route-id="@item.IdEstadoPrestamo" class="btn btn-sm btn-danger">Eliminar</a>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </main>
-    </div>
-</body>
-</html>
+<p>
+    <a asp-action="Create">Crear nuevo registro</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaCreacion)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaCreacion)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdEstadoPrestamo">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.IdEstadoPrestamo">Detalles</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdEstadoPrestamo">Eliminar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

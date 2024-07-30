@@ -1,13 +1,10 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PracticaBiblioteca.Models;
 using PracticaBiblioteca.ViewModels;
-using System.Collections.Generic;
+using System;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace PracticaBiblioteca.Controllers
@@ -34,32 +31,13 @@ namespace PracticaBiblioteca.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _context.Usuarios
-                    .Include(u => u.Rol) // Asumiendo que tienes una propiedad de navegación para Rol en Usuario
                     .SingleOrDefaultAsync(u => u.NombreUsuario == model.NombreUsuario && u.Contrasena == model.Contrasena);
 
                 if (user != null)
                 {
-                    // Crear los claims del usuario
-                    var claims = new List<Claim>
-                    {
-                        new Claim(ClaimTypes.Name, user.NombreUsuario),
-                        new Claim(ClaimTypes.Role, user.Rol.Descripcion) // Suponiendo que Descripcion contiene el nombre del rol
-                    };
-
-                    var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-                    // Autenticación del usuario
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-
-                    // Redirigir basado en el rol del usuario
-                    if (user.Rol.Descripcion == "Admin")
-                    {
-                        return RedirectToAction("Index", "Home"); // O cualquier otra acción para Admin
-                    }
-                    else if (user.Rol.Descripcion == "Usuario")
-                    {
-                        return RedirectToAction("Index", "Home"); // O cualquier otra acción para Usuario
-                    }
+                    // Aquí puedes realizar la autenticación del usuario (por ejemplo, establecer cookies de autenticación).
+                    // Por simplicidad, redirigimos al usuario a la página de inicio.
+                    return RedirectToAction("Index", "Home");
                 }
 
                 ModelState.AddModelError("", "Usuario o contraseña incorrectos.");
@@ -68,17 +46,27 @@ namespace PracticaBiblioteca.Controllers
             return View(model);
         }
 
-        [HttpGet]
+
         public IActionResult Register()
         {
             // Filtrar la lista de roles para incluir solo el rol "Usuario"
-            var roles = _context.Roles.ToList();
+            var roles = _context.Roles.Where(r => r.Descripcion == "Usuario").ToList();
 
             // Crear un SelectList con los roles filtrados
             ViewBag.Roles = new SelectList(roles, "IdRol", "Descripcion");
 
             return View();
         }
+
+
+        //[HttpGet]
+        //public IActionResult Register()
+        //{
+        // Aquí podrías cargar datos necesarios para la vista de registro, como roles, si es necesario.
+        //  ViewBag.Roles = new SelectList(_context.Roles, "IdRol", "Descripcion");
+        //return View();
+        //}
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -97,16 +85,7 @@ namespace PracticaBiblioteca.Controllers
                 _context.Usuarios.Add(usuario);
                 await _context.SaveChangesAsync();
 
-                // Iniciar sesión automáticamente al registrar
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, usuario.NombreUsuario),
-                    new Claim(ClaimTypes.Role, (await _context.Roles.FindAsync(model.IdRol)).Descripcion)
-                };
-
-                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+                // Aquí podrías realizar la autenticación del nuevo usuario si lo deseas.
 
                 return RedirectToAction("Index", "Home");
             }
@@ -120,7 +99,7 @@ namespace PracticaBiblioteca.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            // Aquí podrías realizar la lógica de cierre de sesión (por ejemplo, eliminar cookies de autenticación).
             return RedirectToAction("Index", "Home");
         }
     }

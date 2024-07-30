@@ -9,22 +9,22 @@ using PracticaBiblioteca.Models;
 
 namespace PracticaBiblioteca.Controllers
 {
-    public class EditorialsController : Controller
+    public class RolController : Controller
     {
         private readonly BibliotecaContext _context;
 
-        public EditorialsController(BibliotecaContext context)
+        public RolController(BibliotecaContext context)
         {
             _context = context;
         }
 
-        // GET: Editorials
+        // GET: Rol
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Editorials.ToListAsync());
+            return View(await _context.Roles.ToListAsync());
         }
 
-        // GET: Editorials/Details/5
+        // GET: Rol/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,39 +32,39 @@ namespace PracticaBiblioteca.Controllers
                 return NotFound();
             }
 
-            var editorial = await _context.Editorials
-                .FirstOrDefaultAsync(m => m.IdEditorial == id);
-            if (editorial == null)
+            var rol = await _context.Roles
+                .FirstOrDefaultAsync(m => m.IdRol == id);
+            if (rol == null)
             {
                 return NotFound();
             }
 
-            return View(editorial);
+            return View(rol);
         }
 
-        // GET: Editorials/Create
+        // GET: Rol/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Editorials/Create
+        // POST: Rol/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdEditorial,Descripcion,Estado,FechaCreacion")] Editorial editorial)
+        public async Task<IActionResult> Create([Bind("IdRol,Descripcion,Estado,FechaCreacion")] Rol rol)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(editorial);
+                _context.Add(rol);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(editorial);
+            return View(rol);
         }
 
-        // GET: Editorials/Edit/5
+        // GET: Rol/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -72,22 +72,22 @@ namespace PracticaBiblioteca.Controllers
                 return NotFound();
             }
 
-            var editorial = await _context.Editorials.FindAsync(id);
-            if (editorial == null)
+            var rol = await _context.Roles.FindAsync(id);
+            if (rol == null)
             {
                 return NotFound();
             }
-            return View(editorial);
+            return View(rol);
         }
 
-        // POST: Editorials/Edit/5
+        // POST: Rol/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdEditorial,Descripcion,Estado,FechaCreacion")] Editorial editorial)
+        public async Task<IActionResult> Edit(int id, [Bind("IdRol,Descripcion,Estado,FechaCreacion")] Rol rol)
         {
-            if (id != editorial.IdEditorial)
+            if (id != rol.IdRol)
             {
                 return NotFound();
             }
@@ -96,12 +96,12 @@ namespace PracticaBiblioteca.Controllers
             {
                 try
                 {
-                    _context.Update(editorial);
+                    _context.Update(rol);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EditorialExists(editorial.IdEditorial))
+                    if (!RolExists(rol.IdRol))
                     {
                         return NotFound();
                     }
@@ -112,10 +112,10 @@ namespace PracticaBiblioteca.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(editorial);
+            return View(rol);
         }
 
-        // GET: Editorials/Delete/5
+        // GET: Rol/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -123,34 +123,34 @@ namespace PracticaBiblioteca.Controllers
                 return NotFound();
             }
 
-            var editorial = await _context.Editorials
-                .FirstOrDefaultAsync(m => m.IdEditorial == id);
-            if (editorial == null)
+            var rol = await _context.Roles
+                .FirstOrDefaultAsync(m => m.IdRol == id);
+            if (rol == null)
             {
                 return NotFound();
             }
 
-            return View(editorial);
+            return View(rol);
         }
 
-        // POST: Editorials/Delete/5
+        // POST: Rol/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var editorial = await _context.Editorials.FindAsync(id);
-            if (editorial != null)
+            var rol = await _context.Roles.FindAsync(id);
+            if (rol != null)
             {
-                _context.Editorials.Remove(editorial);
+                _context.Roles.Remove(rol);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool EditorialExists(int id)
+        private bool RolExists(int id)
         {
-            return _context.Editorials.Any(e => e.IdEditorial == id);
+            return _context.Roles.Any(e => e.IdRol == id);
         }
     }
 }

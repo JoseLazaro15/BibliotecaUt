@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization; // Añade esta línea
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -26,7 +25,6 @@ namespace PracticaBiblioteca.Controllers
         }
 
         // GET: Categoriums/Details/5
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -45,16 +43,16 @@ namespace PracticaBiblioteca.Controllers
         }
 
         // GET: Categoriums/Create
-        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
         }
 
         // POST: Categoriums/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("IdCategoria,Descripcion,Estado,FechaCreacion")] Categorium categorium)
         {
             if (ModelState.IsValid)
@@ -67,7 +65,6 @@ namespace PracticaBiblioteca.Controllers
         }
 
         // GET: Categoriums/Edit/5
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -84,9 +81,10 @@ namespace PracticaBiblioteca.Controllers
         }
 
         // POST: Categoriums/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("IdCategoria,Descripcion,Estado,FechaCreacion")] Categorium categorium)
         {
             if (id != categorium.IdCategoria)
@@ -118,7 +116,6 @@ namespace PracticaBiblioteca.Controllers
         }
 
         // GET: Categoriums/Delete/5
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -139,7 +136,6 @@ namespace PracticaBiblioteca.Controllers
         // POST: Categoriums/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var categorium = await _context.Categoria.FindAsync(id);

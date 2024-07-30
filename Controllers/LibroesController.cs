@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +9,6 @@ using PracticaBiblioteca.Models;
 
 namespace PracticaBiblioteca.Controllers
 {
-    [Authorize]
     public class LibroesController : Controller
     {
         private readonly BibliotecaContext _context;
@@ -47,9 +45,29 @@ namespace PracticaBiblioteca.Controllers
 
             return View(libro);
         }
+        //busqueda
+        public async Task<IActionResult> Buscar(string searchString)
+        {
+            if (string.IsNullOrEmpty(searchString))
+            {
+                return View("search", await _context.Libros.Include(l => l.IdAutorNavigation)
+                                                          .Include(l => l.IdCategoriaNavigation)
+                                                          .Include(l => l.IdEditorialNavigation)
+                                                          .ToListAsync());
+            }
+
+            var libros = await _context.Libros
+                .Include(l => l.IdAutorNavigation)
+                .Include(l => l.IdCategoriaNavigation)
+                .Include(l => l.IdEditorialNavigation)
+                .Where(l => l.Titulo.Contains(searchString) || l.IdAutorNavigation.Descripcion.Contains(searchString))
+                .ToListAsync();
+
+            return View("search", libros);
+        }
+        //busqueda
 
         // GET: Libroes/Create
-        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewData["IdAutor"] = new SelectList(_context.Autors, "IdAutor", "Descripcion");
@@ -59,8 +77,9 @@ namespace PracticaBiblioteca.Controllers
         }
 
         // POST: Libroes/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdLibro,Titulo,RutaPortada,NombrePortada,IdAutor,IdCategoria,IdEditorial,Ubicacion,Ejemplares,Estado,FechaCreacion")] Libro libro)
         {
@@ -77,7 +96,6 @@ namespace PracticaBiblioteca.Controllers
         }
 
         // GET: Libroes/Edit/5
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -97,8 +115,9 @@ namespace PracticaBiblioteca.Controllers
         }
 
         // POST: Libroes/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IdLibro,Titulo,RutaPortada,NombrePortada,IdAutor,IdCategoria,IdEditorial,Ubicacion,Ejemplares,Estado,FechaCreacion")] Libro libro)
         {
@@ -134,7 +153,6 @@ namespace PracticaBiblioteca.Controllers
         }
 
         // GET: Libroes/Delete/5
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -157,7 +175,6 @@ namespace PracticaBiblioteca.Controllers
 
         // POST: Libroes/Delete/5
         [HttpPost, ActionName("Delete")]
-        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {

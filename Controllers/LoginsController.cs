@@ -9,22 +9,23 @@ using PracticaBiblioteca.Models;
 
 namespace PracticaBiblioteca.Controllers
 {
-    public class EditorialsController : Controller
+    public class LoginsController : Controller
     {
         private readonly BibliotecaContext _context;
 
-        public EditorialsController(BibliotecaContext context)
+        public LoginsController(BibliotecaContext context)
         {
             _context = context;
         }
 
-        // GET: Editorials
+        // GET: Logins
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Editorials.ToListAsync());
+            var bibliotecaContext = _context.Logins.Include(l => l.Persona);
+            return View(await bibliotecaContext.ToListAsync());
         }
 
-        // GET: Editorials/Details/5
+        // GET: Logins/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,39 +33,42 @@ namespace PracticaBiblioteca.Controllers
                 return NotFound();
             }
 
-            var editorial = await _context.Editorials
-                .FirstOrDefaultAsync(m => m.IdEditorial == id);
-            if (editorial == null)
+            var login = await _context.Logins
+                .Include(l => l.Persona)
+                .FirstOrDefaultAsync(m => m.IdLogin == id);
+            if (login == null)
             {
                 return NotFound();
             }
 
-            return View(editorial);
+            return View(login);
         }
 
-        // GET: Editorials/Create
+        // GET: Logins/Create
         public IActionResult Create()
         {
+            ViewData["IdPersona"] = new SelectList(_context.Personas, "IdPersona", "IdPersona");
             return View();
         }
 
-        // POST: Editorials/Create
+        // POST: Logins/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdEditorial,Descripcion,Estado,FechaCreacion")] Editorial editorial)
+        public async Task<IActionResult> Create([Bind("IdLogin,IdPersona,FechaLogin,Ip,Navegador")] Login login)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(editorial);
+                _context.Add(login);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(editorial);
+            ViewData["IdPersona"] = new SelectList(_context.Personas, "IdPersona", "IdPersona", login.IdPersona);
+            return View(login);
         }
 
-        // GET: Editorials/Edit/5
+        // GET: Logins/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -72,22 +76,23 @@ namespace PracticaBiblioteca.Controllers
                 return NotFound();
             }
 
-            var editorial = await _context.Editorials.FindAsync(id);
-            if (editorial == null)
+            var login = await _context.Logins.FindAsync(id);
+            if (login == null)
             {
                 return NotFound();
             }
-            return View(editorial);
+            ViewData["IdPersona"] = new SelectList(_context.Personas, "IdPersona", "IdPersona", login.IdPersona);
+            return View(login);
         }
 
-        // POST: Editorials/Edit/5
+        // POST: Logins/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdEditorial,Descripcion,Estado,FechaCreacion")] Editorial editorial)
+        public async Task<IActionResult> Edit(int id, [Bind("IdLogin,IdPersona,FechaLogin,Ip,Navegador")] Login login)
         {
-            if (id != editorial.IdEditorial)
+            if (id != login.IdLogin)
             {
                 return NotFound();
             }
@@ -96,12 +101,12 @@ namespace PracticaBiblioteca.Controllers
             {
                 try
                 {
-                    _context.Update(editorial);
+                    _context.Update(login);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EditorialExists(editorial.IdEditorial))
+                    if (!LoginExists(login.IdLogin))
                     {
                         return NotFound();
                     }
@@ -112,10 +117,11 @@ namespace PracticaBiblioteca.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(editorial);
+            ViewData["IdPersona"] = new SelectList(_context.Personas, "IdPersona", "IdPersona", login.IdPersona);
+            return View(login);
         }
 
-        // GET: Editorials/Delete/5
+        // GET: Logins/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -123,34 +129,35 @@ namespace PracticaBiblioteca.Controllers
                 return NotFound();
             }
 
-            var editorial = await _context.Editorials
-                .FirstOrDefaultAsync(m => m.IdEditorial == id);
-            if (editorial == null)
+            var login = await _context.Logins
+                .Include(l => l.Persona)
+                .FirstOrDefaultAsync(m => m.IdLogin == id);
+            if (login == null)
             {
                 return NotFound();
             }
 
-            return View(editorial);
+            return View(login);
         }
 
-        // POST: Editorials/Delete/5
+        // POST: Logins/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var editorial = await _context.Editorials.FindAsync(id);
-            if (editorial != null)
+            var login = await _context.Logins.FindAsync(id);
+            if (login != null)
             {
-                _context.Editorials.Remove(editorial);
+                _context.Logins.Remove(login);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool EditorialExists(int id)
+        private bool LoginExists(int id)
         {
-            return _context.Editorials.Any(e => e.IdEditorial == id);
+            return _context.Logins.Any(e => e.IdLogin == id);
         }
     }
 }

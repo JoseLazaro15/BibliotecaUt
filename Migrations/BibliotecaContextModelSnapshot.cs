@@ -22,32 +22,6 @@ namespace PracticaBiblioteca.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("PracticaBiblioteca.Models.AsignacionRol", b =>
-                {
-                    b.Property<int>("IdAsignacionRol")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdAsignacionRol"));
-
-                    b.Property<DateTime>("FechaAsignacion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("IdPersona")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdRol")
-                        .HasColumnType("int");
-
-                    b.HasKey("IdAsignacionRol");
-
-                    b.HasIndex("IdPersona");
-
-                    b.HasIndex("IdRol");
-
-                    b.ToTable("AsignacionRoles");
-                });
-
             modelBuilder.Entity("PracticaBiblioteca.Models.Autor", b =>
                 {
                     b.Property<int>("IdAutor")
@@ -223,37 +197,6 @@ namespace PracticaBiblioteca.Migrations
                     b.ToTable("LIBRO");
                 });
 
-            modelBuilder.Entity("PracticaBiblioteca.Models.Login", b =>
-                {
-                    b.Property<int>("IdLogin")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdLogin"));
-
-                    b.Property<DateTime>("FechaLogin")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("IdPersona")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Ip")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Navegador")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("IdLogin");
-
-                    b.HasIndex("IdPersona");
-
-                    b.ToTable("Logins");
-                });
-
             modelBuilder.Entity("PracticaBiblioteca.Models.Persona", b =>
                 {
                     b.Property<int>("IdPersona")
@@ -363,30 +306,6 @@ namespace PracticaBiblioteca.Migrations
                     b.ToTable("PRESTAMO");
                 });
 
-            modelBuilder.Entity("PracticaBiblioteca.Models.Rol", b =>
-                {
-                    b.Property<int>("IdRol")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdRol"));
-
-                    b.Property<string>("Descripcion")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<bool>("Estado")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("FechaCreacion")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("IdRol");
-
-                    b.ToTable("Roles");
-                });
-
             modelBuilder.Entity("PracticaBiblioteca.Models.TipoPersona", b =>
                 {
                     b.Property<int>("IdTipoPersona")
@@ -413,56 +332,6 @@ namespace PracticaBiblioteca.Migrations
                     b.ToTable("TIPO_PERSONA");
                 });
 
-            modelBuilder.Entity("PracticaBiblioteca.Models.Usuario", b =>
-                {
-                    b.Property<int>("IdUsuario")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdUsuario"));
-
-                    b.Property<string>("Contrasena")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<DateTime>("FechaCreacion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("IdRol")
-                        .HasColumnType("int");
-
-                    b.Property<string>("NombreUsuario")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("IdUsuario");
-
-                    b.HasIndex("IdRol");
-
-                    b.ToTable("Usuarios");
-                });
-
-            modelBuilder.Entity("PracticaBiblioteca.Models.AsignacionRol", b =>
-                {
-                    b.HasOne("PracticaBiblioteca.Models.Persona", "Persona")
-                        .WithMany()
-                        .HasForeignKey("IdPersona")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("PracticaBiblioteca.Models.Rol", "Rol")
-                        .WithMany()
-                        .HasForeignKey("IdRol")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Persona");
-
-                    b.Navigation("Rol");
-                });
-
             modelBuilder.Entity("PracticaBiblioteca.Models.Libro", b =>
                 {
                     b.HasOne("PracticaBiblioteca.Models.Autor", "IdAutorNavigation")
@@ -485,17 +354,6 @@ namespace PracticaBiblioteca.Migrations
                     b.Navigation("IdCategoriaNavigation");
 
                     b.Navigation("IdEditorialNavigation");
-                });
-
-            modelBuilder.Entity("PracticaBiblioteca.Models.Login", b =>
-                {
-                    b.HasOne("PracticaBiblioteca.Models.Persona", "Persona")
-                        .WithMany()
-                        .HasForeignKey("IdPersona")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Persona");
                 });
 
             modelBuilder.Entity("PracticaBiblioteca.Models.Persona", b =>
@@ -530,17 +388,6 @@ namespace PracticaBiblioteca.Migrations
                     b.Navigation("IdLibroNavigation");
 
                     b.Navigation("IdPersonaNavigation");
-                });
-
-            modelBuilder.Entity("PracticaBiblioteca.Models.Usuario", b =>
-                {
-                    b.HasOne("PracticaBiblioteca.Models.Rol", "Rol")
-                        .WithMany()
-                        .HasForeignKey("IdRol")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Rol");
                 });
 
             modelBuilder.Entity("PracticaBiblioteca.Models.Autor", b =>

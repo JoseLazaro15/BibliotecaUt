@@ -1,11 +1,11 @@
-﻿@model IEnumerable<PracticaBiblioteca.Models.EstadoPrestamo>
+﻿@model IEnumerable<PracticaBiblioteca.Models.Usuario>
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewData["Title"] - Estado de Préstamo</title>
+    <title>@ViewData["Title"] - Usuarios</title>
     <link rel="stylesheet" href="~/css/styles.css">
 </head>
 <body>
@@ -14,11 +14,11 @@
             ViewData["Title"] = "Index";
         }
         <header>
-            <h1>Estado de Préstamo</h1>
+            <h1>Usuarios</h1>
         </header>
 
         <nav class="actions">
-            <a asp-action="Create" class="btn btn-primary">Crear nuevo registro</a>
+            <a asp-action="Create" class="btn btn-primary">Crear nuevo usuario</a>
         </nav>
 
         <main>
@@ -26,9 +26,10 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>@Html.DisplayNameFor(model => model.Descripcion)</th>
-                            <th>@Html.DisplayNameFor(model => model.Estado)</th>
+                            <th>@Html.DisplayNameFor(model => model.NombreUsuario)</th>
+                            <th>@Html.DisplayNameFor(model => model.Contrasena)</th>
                             <th>@Html.DisplayNameFor(model => model.FechaCreacion)</th>
+                            <th>@Html.DisplayNameFor(model => model.Rol)</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -36,13 +37,14 @@
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Estado)</td>
+                                <td>@Html.DisplayFor(modelItem => item.NombreUsuario)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Contrasena)</td>
                                 <td>@Html.DisplayFor(modelItem => item.FechaCreacion)</td>
-                                <td class="actions">
-                                    <a asp-action="Edit" asp-route-id="@item.IdEstadoPrestamo" class="btn btn-sm btn-secondary">Editar</a>
-                                    <a asp-action="Details" asp-route-id="@item.IdEstadoPrestamo" class="btn btn-sm btn-info">Detalles</a>
-                                    <a asp-action="Delete" asp-route-id="@item.IdEstadoPrestamo" class="btn btn-sm btn-danger">Eliminar</a>
+                                <td>@Html.DisplayFor(modelItem => item.Rol.IdRol)</td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.IdUsuario" class="btn btn-sm btn-secondary">Editar</a>
+                                    <a asp-action="Details" asp-route-id="@item.IdUsuario" class="btn btn-sm btn-info">Detalles</a>
+                                    <a asp-action="Delete" asp-route-id="@item.IdUsuario" class="btn btn-sm btn-danger">Eliminar</a>
                                 </td>
                             </tr>
                         }

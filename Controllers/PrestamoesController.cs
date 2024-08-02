@@ -21,13 +21,18 @@ namespace PracticaBiblioteca.Controllers
             _context = context;
         }
 
-        // Método para generar el PDF
-        public async Task<IActionResult> ImprimirSimple()
+        public async Task<IActionResult> ImprimirSimple(int id)
         {
-            var prestamos = await _context.Prestamos.Include(p => p.IdEstadoPrestamoNavigation)
-                                                    .Include(p => p.IdLibroNavigation)
-                                                    .Include(p => p.IdPersonaNavigation)
-                                                    .ToListAsync();
+            var prestamo = await _context.Prestamos
+                                         .Include(p => p.IdEstadoPrestamoNavigation)
+                                         .Include(p => p.IdLibroNavigation)
+                                         .Include(p => p.IdPersonaNavigation)
+                                         .FirstOrDefaultAsync(p => p.IdPrestamo == id);
+
+            if (prestamo == null)
+            {
+                return NotFound();
+            }
 
             using (var ms = new MemoryStream())
             {
@@ -55,42 +60,38 @@ namespace PracticaBiblioteca.Controllers
                 document.Add(new Paragraph(" "));
 
                 // Agrega la tabla de información
-                foreach (var prestamo in prestamos)
-                {
-                    var table = new Table(2);
-                    table.AddCell(new Cell().Add(new Paragraph("FECHA")));
-                    table.AddCell(new Cell().Add(new Paragraph(DateTime.Now.ToString("dd/MM/yyyy")))); // Fecha actual
+                var table = new Table(2);
+                table.AddCell(new Cell().Add(new Paragraph("FECHA DE IMPRESION")));
+                table.AddCell(new Cell().Add(new Paragraph(DateTime.Now.ToString("dd/MM/yyyy")))); // Fecha actual
 
-                    table.AddCell(new Cell().Add(new Paragraph("NOMBRE")));
-                    table.AddCell(new Cell().Add(new Paragraph(prestamo.IdPersonaNavigation.Nombre)));
+                table.AddCell(new Cell().Add(new Paragraph("FECHA DE DEVOLUCION")));
+                table.AddCell(new Cell().Add(new Paragraph(prestamo.FechaDevolucion?.ToString("dd/MM/yyyy") ?? "N/A")));
 
-                    table.AddCell(new Cell().Add(new Paragraph("TELEFONO")));
-                    table.AddCell(new Cell().Add(new Paragraph("N/A"))); // Puedes agregar el campo de teléfono si está disponible
+                table.AddCell(new Cell().Add(new Paragraph("FECHA DE CONFIRMACION DE DEVOLUCION")));
+                table.AddCell(new Cell().Add(new Paragraph(prestamo.FechaConfirmacionDevolucion?.ToString("dd/MM/yyyy") ?? "N/A")));
 
-                    table.AddCell(new Cell().Add(new Paragraph("CLAVE")));
-                    table.AddCell(new Cell().Add(new Paragraph("N/A"))); // Puedes agregar el campo de clave si está disponible
+                table.AddCell(new Cell().Add(new Paragraph("ESTADO ENTREGADO")));
+                table.AddCell(new Cell().Add(new Paragraph(prestamo.EstadoEntregado?.ToString() ?? "N/A")));
 
-                    table.AddCell(new Cell().Add(new Paragraph("CUATRIMESTRE")));
-                    table.AddCell(new Cell().Add(new Paragraph("N/A"))); // Puedes agregar el campo de cuatrimestre si está disponible
+                table.AddCell(new Cell().Add(new Paragraph("ESTADO RECIBIDO")));
+                table.AddCell(new Cell().Add(new Paragraph(prestamo.EstadoRecibido?.ToString() ?? "N/A")));
 
-                    table.AddCell(new Cell().Add(new Paragraph("GRUPO")));
-                    table.AddCell(new Cell().Add(new Paragraph("N/A"))); // Puedes agregar el campo de grupo si está disponible
+                table.AddCell(new Cell().Add(new Paragraph("FECHA DE CREACION")));
+                table.AddCell(new Cell().Add(new Paragraph(prestamo.FechaCreacion?.ToString("dd/MM/yyyy"))));
 
-                    table.AddCell(new Cell().Add(new Paragraph("DIAS")));
-                    table.AddCell(new Cell().Add(new Paragraph("N/A"))); // Puedes agregar el campo de días si está disponible
+                table.AddCell(new Cell().Add(new Paragraph("DESCRIPCION DEL ESTADO")));
+                table.AddCell(new Cell().Add(new Paragraph(prestamo.IdEstadoPrestamoNavigation?.Descripcion ?? "N/A")));
 
-                    table.AddCell(new Cell().Add(new Paragraph("TITULO")));
-                    table.AddCell(new Cell().Add(new Paragraph(prestamo.IdLibroNavigation.Titulo)));
+                table.AddCell(new Cell().Add(new Paragraph("TITULO DEL LIBRO")));
+                table.AddCell(new Cell().Add(new Paragraph(prestamo.IdLibroNavigation?.Titulo ?? "N/A")));
 
-                    table.AddCell(new Cell().Add(new Paragraph("CODIGO")));
-                    table.AddCell(new Cell().Add(new Paragraph("N/A"))); // Puedes agregar el campo de código si está disponible
+                table.AddCell(new Cell().Add(new Paragraph("NOMBRE DEL USUARIO")));
+                table.AddCell(new Cell().Add(new Paragraph(prestamo.IdPersonaNavigation?.Nombre ?? "N/A")));
 
+                document.Add(table);
 
-                    document.Add(table);
-
-                    // Agrega un espacio entre registros
-                    document.Add(new Paragraph(" "));
-                }
+                // Agrega un espacio entre registros
+                document.Add(new Paragraph(" "));
 
                 // Agrega un párrafo final
                 var footer = new Paragraph("El libro que estoy solicitando a la biblioteca de esta institución se encuentran en buen estado, las fechas de préstamo y de entrega se encuentran indicadas en la parte superior, me comprometo a cumplirlas y evitar las sanciones correspondientes. En caso de maltrato o extravío del libro aquí mencionado tendré que cubrir la totalidad del costo para que sea repuesto. Costo por día de retraso $3.00 pesos.")
@@ -109,9 +110,15 @@ namespace PracticaBiblioteca.Controllers
                 document.Close();
                 var byteInfo = ms.ToArray();
 
-                return File(byteInfo, "application/pdf", "Prestamos.pdf");
+                return File(byteInfo, "application/pdf", "Prestamo.pdf");
             }
         }
+
+
+
+
+
+
 
 
         // GET: Prestamoes

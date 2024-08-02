@@ -10,9 +10,6 @@
     <a asp-action="Create">Crear nuevo registro</a>
 </p>
 
-<a asp-controller="Prestamoes" asp-action="ImprimirSimple" class="btn btn-success">Imprimir boleta de Prestamo</a>
-
-
 <table class="table">
     <thead>
         <tr>
@@ -35,53 +32,55 @@
                 @Html.DisplayNameFor(model => model.FechaCreacion)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdEstadoPrestamoNavigation)
+                @Html.DisplayNameFor(model => model.IdEstadoPrestamoNavigation.Descripcion)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdLibroNavigation)
+                @Html.DisplayNameFor(model => model.IdLibroNavigation.Titulo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdPersonaNavigation)
+                @Html.DisplayNameFor(model => model.IdPersonaNavigation.Nombre)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaDevolucion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaConfirmacionDevolucion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EstadoEntregado)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EstadoRecibido)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Estado)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaCreacion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdEstadoPrestamoNavigation.Descripcion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdLibroNavigation.Titulo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdPersonaNavigation.Nombre)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdPrestamo">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.IdPrestamo">Detalles</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdPrestamo">Eliminar</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaDevolucion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaConfirmacionDevolucion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EstadoEntregado)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EstadoRecibido)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Estado)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaCreacion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdEstadoPrestamoNavigation.Descripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdLibroNavigation.Titulo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdPersonaNavigation.Nombre)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.IdPrestamo">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.IdPrestamo">Detalles</a> |
+                    <a asp-action="Delete" asp-route-id="@item.IdPrestamo">Eliminar</a> |
+                    <a asp-action="ImprimirSimple" asp-route-id="@item.IdPrestamo" class="btn btn-success">Imprimir</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

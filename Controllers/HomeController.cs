@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using PracticaBiblioteca.Models;
 using System.Diagnostics;
+using Microsoft.Extensions.Logging;
+using PracticaBiblioteca.Models;
 
 namespace PracticaBiblioteca.Controllers
 {
@@ -18,7 +19,14 @@ namespace PracticaBiblioteca.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        // Vista para el panel de usuario
+        public IActionResult UserDashboard()
+        {
+            return View();
+        }
+
+        // Vista para el panel de administrador
+        public IActionResult AdminDashboard()
         {
             return View();
         }

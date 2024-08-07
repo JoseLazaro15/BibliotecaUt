@@ -1,9 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PracticaBiblioteca.Models;
 using PracticaBiblioteca.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -35,9 +39,26 @@ namespace PracticaBiblioteca.Controllers
 
                 if (user != null)
                 {
-                    // Aquí puedes realizar la autenticación del usuario (por ejemplo, establecer cookies de autenticación).
-                    // Por simplicidad, redirigimos al usuario a la página de inicio.
-                    return RedirectToAction("Index", "Home");
+                    var claims = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.Name, user.NombreUsuario),
+                        new Claim("IdUsuario", user.IdUsuario.ToString()),
+                        new Claim(ClaimTypes.Role, user.IdRol == 6 ? "Admin" : "Usuario") // Usar 6 para Admin y 7 para Usuario
+                    };
+
+                    var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+
+                    // Redirigir según el rol
+                    if (user.IdRol == 6) // Admin
+                    {
+                        return RedirectToAction("AdminDashboard", "Home");
+                    }
+                    else if (user.IdRol == 7) // Usuario
+                    {
+                        return RedirectToAction("UserDashboard", "Home");
+                    }
                 }
 
                 ModelState.AddModelError("", "Usuario o contraseña incorrectos.");
@@ -46,7 +67,7 @@ namespace PracticaBiblioteca.Controllers
             return View(model);
         }
 
-
+        [HttpGet]
         public IActionResult Register()
         {
             // Filtrar la lista de roles para incluir solo el rol "Usuario"
@@ -57,16 +78,6 @@ namespace PracticaBiblioteca.Controllers
 
             return View();
         }
-
-
-        //[HttpGet]
-        //public IActionResult Register()
-        //{
-        // Aquí podrías cargar datos necesarios para la vista de registro, como roles, si es necesario.
-        //  ViewBag.Roles = new SelectList(_context.Roles, "IdRol", "Descripcion");
-        //return View();
-        //}
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -99,7 +110,7 @@ namespace PracticaBiblioteca.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
-            // Aquí podrías realizar la lógica de cierre de sesión (por ejemplo, eliminar cookies de autenticación).
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Home");
         }
     }

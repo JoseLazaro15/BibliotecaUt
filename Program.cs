@@ -1,25 +1,34 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using PracticaBiblioteca.Models;
-using PracticaBiblioteca.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Configuración de servicios
+builder.Services.AddDbContext<BibliotecaContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("connectionLibrary")));
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Login";
+        options.LogoutPath = "/Account/Logout";
+    });
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
+    options.AddPolicy("UserOnly", policy => policy.RequireRole("Usuario"));
+});
+
 builder.Services.AddControllersWithViews();
-
-
-var connection = builder.Configuration.GetConnectionString("connectionLibrary");
-builder.Services.AddDbContext<BibliotecaContext>(option => option.UseSqlServer(connection));
 
 var app = builder.Build();
 
-
-
-// Configure the HTTP request pipeline.
+// Configuración del middleware
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -28,6 +37,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

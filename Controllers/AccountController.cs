@@ -1,9 +1,13 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 
+=======
+﻿using Microsoft.AspNetCore.Authentication;
+>>>>>>> parent of 55d5842 (Merge commit '4c10a11d4b25c301d0d69c9904bd3c5ce17f64d8')
 =======
 ﻿using Microsoft.AspNetCore.Authentication;
 >>>>>>> parent of 55d5842 (Merge commit '4c10a11d4b25c301d0d69c9904bd3c5ce17f64d8')
@@ -14,10 +18,13 @@ using Microsoft.EntityFrameworkCore;
 using PracticaBiblioteca.Models;
 using PracticaBiblioteca.ViewModels;
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
 using System;
 
+=======
+>>>>>>> parent of 55d5842 (Merge commit '4c10a11d4b25c301d0d69c9904bd3c5ce17f64d8')
 =======
 >>>>>>> parent of 55d5842 (Merge commit '4c10a11d4b25c301d0d69c9904bd3c5ce17f64d8')
 using System.Collections.Generic;
@@ -55,7 +62,10 @@ namespace PracticaBiblioteca.Controllers
                 if (user != null)
                 {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 55d5842 (Merge commit '4c10a11d4b25c301d0d69c9904bd3c5ce17f64d8')
 =======
 >>>>>>> parent of 55d5842 (Merge commit '4c10a11d4b25c301d0d69c9904bd3c5ce17f64d8')
                     // Crear los claims del usuario
@@ -63,6 +73,7 @@ namespace PracticaBiblioteca.Controllers
                     {
                         new Claim(ClaimTypes.Name, user.NombreUsuario),
                         new Claim(ClaimTypes.Role, user.Rol.Descripcion) // Suponiendo que Descripcion contiene el nombre del rol
+<<<<<<< HEAD
 <<<<<<< HEAD
 
                     var claims = new List<Claim>
@@ -73,12 +84,17 @@ namespace PracticaBiblioteca.Controllers
 
 =======
 >>>>>>> parent of 55d5842 (Merge commit '4c10a11d4b25c301d0d69c9904bd3c5ce17f64d8')
+=======
+>>>>>>> parent of 55d5842 (Merge commit '4c10a11d4b25c301d0d69c9904bd3c5ce17f64d8')
                     };
 
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 55d5842 (Merge commit '4c10a11d4b25c301d0d69c9904bd3c5ce17f64d8')
 =======
 >>>>>>> parent of 55d5842 (Merge commit '4c10a11d4b25c301d0d69c9904bd3c5ce17f64d8')
                     // Autenticación del usuario
@@ -93,6 +109,7 @@ namespace PracticaBiblioteca.Controllers
                     {
                         return RedirectToAction("Index", "Home"); // O cualquier otra acción para Usuario
 <<<<<<< HEAD
+<<<<<<< HEAD
 
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
 
@@ -104,6 +121,8 @@ namespace PracticaBiblioteca.Controllers
                     else if (user.IdRol == 7) // Usuario
                     {
                         return RedirectToAction("UserDashboard", "Home");
+=======
+>>>>>>> parent of 55d5842 (Merge commit '4c10a11d4b25c301d0d69c9904bd3c5ce17f64d8')
 =======
 >>>>>>> parent of 55d5842 (Merge commit '4c10a11d4b25c301d0d69c9904bd3c5ce17f64d8')
                     }

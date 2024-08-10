@@ -4,9 +4,12 @@ using PracticaBiblioteca.Models;
 using System.Diagnostics;
 using Microsoft.Extensions.Logging;
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 using PracticaBiblioteca.Models;
 
+=======
+>>>>>>> parent of 55d5842 (Merge commit '4c10a11d4b25c301d0d69c9904bd3c5ce17f64d8')
 =======
 >>>>>>> parent of 55d5842 (Merge commit '4c10a11d4b25c301d0d69c9904bd3c5ce17f64d8')
 

@@ -1,13 +1,23 @@
-using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using PracticaBiblioteca.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configuración de servicios
-builder.Services.AddDbContext<BibliotecaContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("connectionLibrary")));
+// Add services to the container.
+builder.Services.AddControllersWithViews();
 
+// Configure Entity Framework Core
+var connection = builder.Configuration.GetConnectionString("connectionLibrary");
+builder.Services.AddDbContext<BibliotecaContext>(options =>
+    options.UseSqlServer(connection));
+
+// Configure Authentication and Authorization
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
@@ -21,11 +31,9 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("UserOnly", policy => policy.RequireRole("Usuario"));
 });
 
-builder.Services.AddControllersWithViews();
-
 var app = builder.Build();
 
-// Configuración del middleware
+// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -37,11 +45,12 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+// Add authentication and authorization middleware
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Welcome}/{id?}");
 
 app.Run();

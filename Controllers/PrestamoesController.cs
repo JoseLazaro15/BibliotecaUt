@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using iText.Kernel.Pdf;
-using iText.Layout;
-using iText.Layout.Element;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +17,8 @@ namespace PracticaBiblioteca.Controllers
         {
             _context = context;
         }
+
+<<<<<<< HEAD
 
         public async Task<IActionResult> ImprimirSimple(int id)
         {
@@ -121,13 +120,15 @@ namespace PracticaBiblioteca.Controllers
 
 
 
+
+=======
+>>>>>>> parent of 55d5842 (Merge commit '4c10a11d4b25c301d0d69c9904bd3c5ce17f64d8')
         // GET: Prestamoes
         public async Task<IActionResult> Index()
         {
             var bibliotecaContext = _context.Prestamos.Include(p => p.IdEstadoPrestamoNavigation).Include(p => p.IdLibroNavigation).Include(p => p.IdPersonaNavigation);
             return View(await bibliotecaContext.ToListAsync());
         }
-
 
         // GET: Prestamoes/Details/5
         public async Task<IActionResult> Details(int? id)

@@ -17,7 +17,6 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-<<<<<<< HEAD
                     <ul class="navbar-nav flex-grow-1">
 <<<<<<< HEAD
                         @if (User.IsInRole("Admin"))
@@ -31,43 +30,15 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Categoriums" asp-action="Index">Categorias</a>
                             </li>
-=======
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <ul class="navbar-nav flex-grow-1">
-                            @if (User.IsInRole("Admin"))
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Autors" asp-action="Index">Autores</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="EstadoPrestamoes" asp-action="Index">Estado Prestamos</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Personas" asp-action="Index">Personas</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Prestamoes" asp-action="Index">Prestamos Libros</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Index">Usuario</a>
-                                </li>
-                            }
->>>>>>> 4c10a11d4b25c301d0d69c9904bd3c5ce17f64d8
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Editorials" asp-action="Index">Editoriales</a>
                             </li>
                             <li class="nav-item">
-<<<<<<< HEAD
                                 <a class="nav-link text-dark" asp-area="" asp-controller="EstadoPrestamoes" asp-action="Index">Estado Prestamos</a>
-=======
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Categoriums" asp-action="Index">Categorías</a>
->>>>>>> 4c10a11d4b25c301d0d69c9904bd3c5ce17f64d8
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Libroes" asp-action="Index">Libros</a>
                             </li>
-<<<<<<< HEAD
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Personas" asp-action="Index">Personas</a>
                             </li>
@@ -91,30 +62,19 @@
                             </li>
                         }
                     </ul>
-=======
-                        </ul>
-                    }
-
->>>>>>> 4c10a11d4b25c301d0d69c9904bd3c5ce17f64d8
                     <ul class="navbar-nav">
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
                                 <form asp-controller="Account" asp-action="Logout" method="post" class="form-inline">
-<<<<<<< HEAD
                                     @Html.AntiForgeryToken() <!-- Asegúrate de incluir el token anti-forgery -->
                                     <button type="submit" class="btn btn-link">Cerrar sesion</button>
-=======
-                                    <button type="submit" class="btn btn-outline-danger">Logout</button>
-                                    @Html.AntiForgeryToken() <!-- Añadir protección contra CSRF -->
->>>>>>> 4c10a11d4b25c301d0d69c9904bd3c5ce17f64d8
                                 </form>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item">
-<<<<<<< HEAD
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Iniciar sesion</a>
                             </li>
                             <li class="nav-item">
@@ -153,14 +113,6 @@
 =======
 >>>>>>> parent of 7453f44 (Añadi clases, carpetas y vistas.)
 >>>>>>> 6adfba3dd3b32f2f0d61a05fc66dfd8af54fea9d
-=======
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
-                            </li>
-                        }
->>>>>>> 4c10a11d4b25c301d0d69c9904bd3c5ce17f64d8
                     </ul>
                 </div>
             </div>

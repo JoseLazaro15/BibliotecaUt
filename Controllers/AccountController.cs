@@ -1,9 +1,12 @@
 <<<<<<< HEAD
-﻿using Microsoft.AspNetCore.Authentication;
-=======
-﻿using System.Security.Claims;
+
 using Microsoft.AspNetCore.Authentication;
->>>>>>> 4c10a11d4b25c301d0d69c9904bd3c5ce17f64d8
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+
+=======
+﻿using Microsoft.AspNetCore.Authentication;
+>>>>>>> parent of 55d5842 (Merge commit '4c10a11d4b25c301d0d69c9904bd3c5ce17f64d8')
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,9 +14,12 @@ using Microsoft.EntityFrameworkCore;
 using PracticaBiblioteca.Models;
 using PracticaBiblioteca.ViewModels;
 <<<<<<< HEAD
-=======
+
+
 using System;
->>>>>>> 4c10a11d4b25c301d0d69c9904bd3c5ce17f64d8
+
+=======
+>>>>>>> parent of 55d5842 (Merge commit '4c10a11d4b25c301d0d69c9904bd3c5ce17f64d8')
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -49,23 +55,32 @@ namespace PracticaBiblioteca.Controllers
                 if (user != null)
                 {
 <<<<<<< HEAD
+
+=======
+>>>>>>> parent of 55d5842 (Merge commit '4c10a11d4b25c301d0d69c9904bd3c5ce17f64d8')
                     // Crear los claims del usuario
                     var claims = new List<Claim>
                     {
                         new Claim(ClaimTypes.Name, user.NombreUsuario),
                         new Claim(ClaimTypes.Role, user.Rol.Descripcion) // Suponiendo que Descripcion contiene el nombre del rol
-=======
+<<<<<<< HEAD
+
                     var claims = new List<Claim>
                     {
                         new Claim(ClaimTypes.Name, user.NombreUsuario),
                         new Claim("IdUsuario", user.IdUsuario.ToString()),
                         new Claim(ClaimTypes.Role, user.IdRol == 6 ? "Admin" : "Usuario") // Usar 6 para Admin y 7 para Usuario
->>>>>>> 4c10a11d4b25c301d0d69c9904bd3c5ce17f64d8
+
+=======
+>>>>>>> parent of 55d5842 (Merge commit '4c10a11d4b25c301d0d69c9904bd3c5ce17f64d8')
                     };
 
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
 <<<<<<< HEAD
+
+=======
+>>>>>>> parent of 55d5842 (Merge commit '4c10a11d4b25c301d0d69c9904bd3c5ce17f64d8')
                     // Autenticación del usuario
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
 
@@ -77,7 +92,8 @@ namespace PracticaBiblioteca.Controllers
                     else if (user.Rol.Descripcion == "Usuario")
                     {
                         return RedirectToAction("Index", "Home"); // O cualquier otra acción para Usuario
-=======
+<<<<<<< HEAD
+
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
 
                     // Redirigir según el rol
@@ -88,7 +104,8 @@ namespace PracticaBiblioteca.Controllers
                     else if (user.IdRol == 7) // Usuario
                     {
                         return RedirectToAction("UserDashboard", "Home");
->>>>>>> 4c10a11d4b25c301d0d69c9904bd3c5ce17f64d8
+=======
+>>>>>>> parent of 55d5842 (Merge commit '4c10a11d4b25c301d0d69c9904bd3c5ce17f64d8')
                     }
                 }
 

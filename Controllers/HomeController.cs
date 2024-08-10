@@ -1,11 +1,14 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PracticaBiblioteca.Models;
 using System.Diagnostics;
 using Microsoft.Extensions.Logging;
 <<<<<<< HEAD
-=======
+
 using PracticaBiblioteca.Models;
->>>>>>> 4c10a11d4b25c301d0d69c9904bd3c5ce17f64d8
+
+=======
+>>>>>>> parent of 55d5842 (Merge commit '4c10a11d4b25c301d0d69c9904bd3c5ce17f64d8')
 
 namespace PracticaBiblioteca.Controllers
 {
@@ -19,7 +22,7 @@ namespace PracticaBiblioteca.Controllers
             _logger = logger;
         }
 
-        // Acción para la vista de bienvenida
+        // Acciï¿½n para la vista de bienvenida
         [AllowAnonymous]
         public IActionResult Welcome()
         {
@@ -35,14 +38,7 @@ namespace PracticaBiblioteca.Controllers
             return View();
         }
 
-        // Vista para el panel de usuario
-        public IActionResult UserDashboard()
-        {
-            return View();
-        }
-
-        // Vista para el panel de administrador
-        public IActionResult AdminDashboard()
+        public IActionResult Privacy()
         {
             return View();
         }

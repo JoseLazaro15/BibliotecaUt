@@ -19,7 +19,7 @@ namespace PracticaBiblioteca.Controllers
         }
 
 <<<<<<< HEAD
-=======
+
         public async Task<IActionResult> ImprimirSimple(int id)
         {
             var prestamo = await _context.Prestamos
@@ -120,7 +120,9 @@ namespace PracticaBiblioteca.Controllers
 
 
 
->>>>>>> 4c10a11d4b25c301d0d69c9904bd3c5ce17f64d8
+
+=======
+>>>>>>> parent of 55d5842 (Merge commit '4c10a11d4b25c301d0d69c9904bd3c5ce17f64d8')
         // GET: Prestamoes
         public async Task<IActionResult> Index()
         {

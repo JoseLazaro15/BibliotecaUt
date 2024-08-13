@@ -4,11 +4,15 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>coleccion de libros</h1>
+<h1>Colección de libros</h1>
 
-<p>
-    <a asp-action="Create">Crear nuevo registro</a>
-</p>
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-action="Create">Crear nuevo registro</a>
+    </p>
+}
+
 @* inicia metodo buscar *@
 <form asp-action="Buscar" method="get">
     <div class="form-group">
@@ -17,84 +21,49 @@
     <div class="form-group">
         <button type="submit" class="btn btn-primary">Buscar</button>
     </div>
-
 </form>
 @* termina metodo buscar *@
+
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Titulo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RutaPortada)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NombrePortada)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Ubicacion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Ejemplares)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Estado)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaCreacion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdAutorNavigation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdCategoriaNavigation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdEditorialNavigation)
-            </th>
+            <th>@Html.DisplayNameFor(model => model.Titulo)</th>
+            <th>@Html.DisplayNameFor(model => model.RutaPortada)</th>
+            <th>@Html.DisplayNameFor(model => model.NombrePortada)</th>
+            <th>@Html.DisplayNameFor(model => model.Ubicacion)</th>
+            <th>@Html.DisplayNameFor(model => model.Ejemplares)</th>
+            <th>@Html.DisplayNameFor(model => model.Estado)</th>
+            <th>@Html.DisplayNameFor(model => model.FechaCreacion)</th>
+            <th>@Html.DisplayNameFor(model => model.IdAutorNavigation)</th>
+            <th>@Html.DisplayNameFor(model => model.IdCategoriaNavigation)</th>
+            <th>@Html.DisplayNameFor(model => model.IdEditorialNavigation)</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Titulo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RutaPortada)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NombrePortada)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ubicacion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ejemplares)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Estado)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaCreacion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdAutorNavigation.Descripcion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdCategoriaNavigation.Descripcion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdEditorialNavigation.Descripcion)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdLibro">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.IdLibro">Detalles</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdLibro">Eliminar</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Titulo)</td>
+                <td>@Html.DisplayFor(modelItem => item.RutaPortada)</td>
+                <td>@Html.DisplayFor(modelItem => item.NombrePortada)</td>
+                <td>@Html.DisplayFor(modelItem => item.Ubicacion)</td>
+                <td>@Html.DisplayFor(modelItem => item.Ejemplares)</td>
+                <td>@Html.DisplayFor(modelItem => item.Estado)</td>
+                <td>@Html.DisplayFor(modelItem => item.FechaCreacion)</td>
+                <td>@Html.DisplayFor(modelItem => item.IdAutorNavigation.Descripcion)</td>
+                <td>@Html.DisplayFor(modelItem => item.IdCategoriaNavigation.Descripcion)</td>
+                <td>@Html.DisplayFor(modelItem => item.IdEditorialNavigation.Descripcion)</td>
+                <td>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.IdLibro">Editar</a>
+ 
+                    <a asp-action="Details" asp-route-id="@item.IdLibro"> Detalles </a> 
+                    <a asp-action="Delete" asp-route-id="@item.IdLibro"> Eliminar </a>
+                    }
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

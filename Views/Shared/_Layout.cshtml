@@ -7,6 +7,16 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/PracticaBiblioteca.styles.css" asp-append-version="true" />
+    <style>
+        .btn-outline-primary-custom {
+            color: #0d6efd;
+            border-color: #0d6efd;
+        }
+        .btn-outline-primary-custom:hover {
+            background-color: #0d6efd;
+            color: white;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -17,10 +27,10 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <ul class="navbar-nav flex-grow-1">
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav me-auto">
+                        @if (User.Identity.IsAuthenticated)
+                        {
                             @if (User.IsInRole("Admin"))
                             {
                                 <li class="nav-item">
@@ -48,26 +58,29 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Libroes" asp-action="Index">Libros</a>
                             </li>
-                        </ul>
-                    }
+                        }
+                    </ul>
 
-                    <ul class="navbar-nav">
+                    <ul class="navbar-nav ms-auto">
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
                                 <form asp-controller="Account" asp-action="Logout" method="post" class="form-inline">
-                                    <button type="submit" class="btn btn-outline-danger">Logout</button>
+                                    <button type="submit" class="btn btn-outline-danger">Cerrar Sesión</button>
                                     @Html.AntiForgeryToken() <!-- Añadir protección contra CSRF -->
                                 </form>
                             </li>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Registrar</a>
+                                </li>
+                            }
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                                <a class="nav-link btn btn-outline-primary-custom" asp-area="" asp-controller="Account" asp-action="Login">Iniciar Sesión</a>
                             </li>
                         }
                     </ul>
@@ -92,3 +105,4 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+

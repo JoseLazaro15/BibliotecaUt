@@ -7,31 +7,13 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/PracticaBiblioteca.styles.css" asp-append-version="true" />
-    <style>
-        .btn-outline-primary-custom {
-            color: #0d6efd;
-            border-color: #0d6efd;
-            padding: 0.375rem 0.75rem; /* Ajusta el padding para el tamaño del botón */
-            display: flex;
-            align-items: center;
-        }
 
-            .btn-outline-primary-custom:hover {
-                background-color: #0d6efd;
-                color: white;
-            }
-
-            .btn-outline-primary-custom img {
-                max-height: 1.5rem; /* Ajusta la altura máxima de la imagen */
-                margin-right: 0.5rem; /* Espacio entre la imagen y el texto */
-            }
-    </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3 sticky-top">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Biblioteca</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Biblioteca UT</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -43,29 +25,29 @@
                             @if (User.IsInRole("Admin"))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Autors" asp-action="Index">Autores</a>
+                                    <a class="nav-link text-white" asp-area="" asp-controller="Autors" asp-action="Index">Autores</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="EstadoPrestamoes" asp-action="Index">Estado Prestamos</a>
+                                    <a class="nav-link text-white" asp-area="" asp-controller="EstadoPrestamoes" asp-action="Index">Estado Prestamos</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Personas" asp-action="Index">Personas</a>
+                                    <a class="nav-link text-white" asp-area="" asp-controller="Personas" asp-action="Index">Personas</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Prestamoes" asp-action="Index">Prestamos Libros</a>
+                                    <a class="nav-link text-white" asp-area="" asp-controller="Prestamoes" asp-action="Index">Prestamos Libros</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Index">Usuario</a>
+                                    <a class="nav-link text-white" asp-area="" asp-controller="Usuario" asp-action="Index">Usuario</a>
                                 </li>
                             }
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Editorials" asp-action="Index">Editoriales</a>
+                                <a class="nav-link text-white" asp-area="" asp-controller="Editorials" asp-action="Index">Editoriales</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Categoriums" asp-action="Index">Categorías</a>
+                                <a class="nav-link text-white" asp-area="" asp-controller="Categoriums" asp-action="Index">Categorías</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Libroes" asp-action="Index">Libros</a>
+                                <a class="nav-link text-white" asp-area="" asp-controller="Libroes" asp-action="Index">Libros</a>
                             </li>
                         }
                     </ul>
@@ -82,7 +64,7 @@
                             @if (User.IsInRole("Admin"))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Registrar</a>
+                                    <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="Register">Registrar</a>
                                 </li>
                             }
                         }
@@ -107,9 +89,9 @@
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - PracticaBiblioteca - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
+        <container>
+            <p>&copy; 2024 Sistema de Gestión de Bibliotecas. Todos los derechos reservados.</p>
+        </container>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

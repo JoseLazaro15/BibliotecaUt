@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using iText.IO.Image;
+using iText.Kernel.Colors;
 using iText.Kernel.Pdf;
 using iText.Layout;
+using iText.Layout.Borders;
 using iText.Layout.Element;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -40,13 +43,30 @@ namespace PracticaBiblioteca.Controllers
                 var pdf = new PdfDocument(writer);
                 var document = new Document(pdf);
 
-                // Agrega el encabezado
+                // Logos de la boleta
+                string logoPath1 = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/LOGO_SGB.png");
+                string logoPath2 = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/LOGO_UT.jpg");
+
+                ImageData imageData1 = ImageDataFactory.Create(logoPath1);
+                Image logo1 = new Image(imageData1).ScaleAbsolute(116.7f, 76.7f).SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.LEFT);
+
+                ImageData imageData2 = ImageDataFactory.Create(logoPath2);
+                Image logo2 = new Image(imageData2).ScaleAbsolute(76.7f, 76.7f).SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.RIGHT);
+
+                // Tabla para los logos
+                var logoTable = new Table(2).UseAllAvailableWidth();
+                logoTable.AddCell(new Cell().Add(logo1).SetBorder(Border.NO_BORDER));
+                logoTable.AddCell(new Cell().Add(logo2).SetBorder(Border.NO_BORDER));
+
+                document.Add(logoTable);
+
+                // Agrega el Encabezado
                 var header = new Paragraph("UNIVERSIDAD TECNOLOGICA DE LA REGION NORTE DEL ESTADO DE GUERRERO")
                     .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
                     .SetFontSize(18);
                 document.Add(header);
 
-                var subheader = new Paragraph("PRESTAMO DE LIBROS BIBLIOTECA UT")
+                var subheader = new Paragraph("BOLETA DE PRESTAMO DE LIBROS BIBLIOTECA UT")
                     .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
                     .SetFontSize(14);
                 document.Add(subheader);
@@ -56,11 +76,15 @@ namespace PracticaBiblioteca.Controllers
                     .SetFontSize(12);
                 document.Add(subsubheader);
 
-                // Agrega un espacio
+                // Agrega un espacio en blanco
                 document.Add(new Paragraph(" "));
 
-                // Agrega la tabla de información
-                var table = new Table(2);
+                // Tabla de informacion de la boleta
+                var table = new Table(2).SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER);
+
+                // Cambiar el color de la tabla
+                table.SetBackgroundColor(ColorConstants.LIGHT_GRAY);
+
                 table.AddCell(new Cell().Add(new Paragraph("FECHA DE IMPRESION")));
                 table.AddCell(new Cell().Add(new Paragraph(DateTime.Now.ToString("dd/MM/yyyy")))); // Fecha actual
 
@@ -93,13 +117,13 @@ namespace PracticaBiblioteca.Controllers
                 // Agrega un espacio entre registros
                 document.Add(new Paragraph(" "));
 
-                // Agrega un párrafo final
-                var footer = new Paragraph("El libro que estoy solicitando a la biblioteca de esta institución se encuentran en buen estado, las fechas de préstamo y de entrega se encuentran indicadas en la parte superior, me comprometo a cumplirlas y evitar las sanciones correspondientes. En caso de maltrato o extravío del libro aquí mencionado tendré que cubrir la totalidad del costo para que sea repuesto. Costo por día de retraso $3.00 pesos.")
+                // Parrafo final
+                var footer = new Paragraph("El libro que estoy solicitando a la biblioteca de esta institución se encuentran en buen estado, las fechas de préstamo y de entrega se encuentran indicadas en la parte superior, me comprometo a cumplirlas y evitar las sanciones correspondientes. En caso de maltrato o extravío del libro aquí mencionado tendré que cubrir la totalidad del costo para que sea repuesto. Costo por día de retraso $10.00 pesos.")
                     .SetTextAlignment(iText.Layout.Properties.TextAlignment.JUSTIFIED)
                     .SetFontSize(10);
                 document.Add(footer);
 
-                // Agrega un espacio y la firma
+                // Agrega un espacio en blanco para agregar la firma
                 document.Add(new Paragraph(" "));
                 document.Add(new Paragraph(" "));
                 var firma = new Paragraph("FIRMA DEL ALUMNO")
@@ -107,12 +131,22 @@ namespace PracticaBiblioteca.Controllers
                     .SetFontSize(12);
                 document.Add(firma);
 
+                // Agrega el nombre del usuario debajo de la firma
+                var nombreUsuario = new Paragraph(prestamo.IdPersonaNavigation?.Nombre ?? "N/A")
+                    .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
+                    .SetFontSize(12);
+                document.Add(nombreUsuario);
+
                 document.Close();
                 var byteInfo = ms.ToArray();
 
                 return File(byteInfo, "application/pdf", "Prestamo.pdf");
             }
         }
+
+
+
+
 
 
 

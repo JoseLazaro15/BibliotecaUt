@@ -1,72 +1,83 @@
 ﻿/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+:root {
+    --primary-color: #1b6ec2;
+    --primary-border-color: #1861ac;
+    --outline-color: #0d6efd;
+    --footer-bg: #343a40;
+    --footer-text: #fff;
+    --border-color: #e5e5e5;
+}
+
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-word; /* Reemplaza break-all por break-word para mejor compatibilidad */
 }
 
 a {
-  color: #0077cc;
+    color: var(--outline-color);
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: var(--primary-color);
+    border-color: var(--primary-border-color);
 }
 
 .btn-outline-primary-custom {
-  color: #0d6efd;
-  border-color: #0d6efd;
-  padding: 0.375rem 0.75rem; /* Ajusta el padding para el tamaño del botón */
-  display: flex;
-  align-items: center;
+    color: var(--outline-color);
+    border-color: var(--outline-color);
+    padding: 0.375rem 0.75rem;
+    display: flex;
+    align-items: center;
 }
 
-.btn-outline-primary-custom:hover {
-  background-color: #0d6efd;
-  color: white;
-}
+    .btn-outline-primary-custom:hover {
+        background-color: var(--outline-color);
+        color: #fff;
+    }
 
-.btn-outline-primary-custom img {
-  max-height: 1.5rem; /* Ajusta la altura máxima de la imagen */
-  margin-right: 0.5rem; /* Espacio entre la imagen y el texto */
-}
+    .btn-outline-primary-custom img {
+        max-height: 1.5rem;
+        margin-right: 0.5rem;
+    }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: var(--primary-color);
+    border-color: var(--primary-border-color);
 }
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+    border-top: 1px solid var(--border-color);
 }
+
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
 button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    font-size: 1rem;
+    line-height: inherit;
 }
 
 footer {
-  background: #343a40;
-  color: #fff;
-  text-align: center;
-  padding: 20px;
-  position: fixed;
-  width: 100%;
-  bottom: 0;
+    background: var(--footer-bg);
+    color: var(--footer-text);
+    text-align: center;
+    padding: 20px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
 }
 
-footer p {
-  margin: 0;
-}
+    footer p {
+        margin: 0;
+    }
+
